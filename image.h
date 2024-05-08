@@ -1,4 +1,4 @@
-typedef struct pixelRGB PixelRGB;
+typedef struct pixel PixelRGB;
 typedef struct image Imagem;
 
 // Mostrar a dimenções da imagem
