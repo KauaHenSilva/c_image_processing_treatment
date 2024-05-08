@@ -1,0 +1,1 @@
+void exibirPixel(int r, int g, int b);
