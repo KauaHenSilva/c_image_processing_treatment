@@ -86,12 +86,19 @@ void liberacaodematriz(Imagem *img)
 
 int main()
 {
-  int largura = LARGURA;
-  int altura = ALTURA;
 
-  Imagem *img = alocacaoImage(largura, altura);
-  setPixel(largura, altura, img);
-  printImage(img);
+  FILE *img = fopen(".//input_image.txt", "r");
+  if(!img)
+    perror("Não leu");
+  
+  int largura;
+  int altura;
+
+  fscanf(img, "%d", &largura);
+  fscanf(img, "%d", &altura);
+
+  printf("%d\n", largura);
+  printf("%d\n", altura);
 
   return 0;
 }
