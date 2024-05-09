@@ -18,10 +18,10 @@ int main()
   Image *img = alocacaoImage(alturaGlob, larguraGlob);
   setPixel(alturaGlob, larguraGlob, img);
 
-  printImage(img);
+  // printImage(img);
 
-  // ImageGray *imgGray = converterParaCinza(img);
-  // printImageGrey(imgGray);
+  ImageGray *imgGray = converterParaCinza(img);
+  printImageGrey(imgGray);
 
   liberacaodeImage(img);
   return 0;
