@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define LARGURA 10
-#define ALTURA 10
+int larguraGlob;
+int alturaGlob;
+
+FILE *fileImg;
 
 struct pixel
 {
@@ -27,9 +29,9 @@ void printPixel(int lin, int col, Imagem *img)
 {
 
   int r, g, b;
-  r = img->pixel[lin * LARGURA + col].red;
-  g = img->pixel[lin * LARGURA + col].green;
-  b = img->pixel[lin * LARGURA + col].blue;
+  r = img->pixel[lin * larguraGlob + col].red;
+  g = img->pixel[lin * larguraGlob + col].green;
+  b = img->pixel[lin * larguraGlob + col].blue;
 
   if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
     perror("Valores RGB fora do intervalo permitido.\n");
@@ -39,7 +41,7 @@ void printPixel(int lin, int col, Imagem *img)
 
 PixelRGB getPixel(int lin, int col, Imagem *img)
 {
-  return img->pixel[lin * LARGURA + col];
+  return img->pixel[lin * larguraGlob + col];
 }
 
 void setPixel(int lin, int col, Imagem *img)
@@ -47,9 +49,10 @@ void setPixel(int lin, int col, Imagem *img)
   for (int x = 0; x < lin; x++)
     for (int y = 0; y < col; y++)
     {
-      img->pixel[x * LARGURA + y].blue = rand() % 256;
-      img->pixel[x * LARGURA + y].green = rand() % 256;
-      img->pixel[x * LARGURA + y].red = rand() % 256;
+      fscanf(fileImg, "%d", &img->pixel[x * larguraGlob + y].red);
+      fscanf(fileImg, "%d", &img->pixel[x * larguraGlob + y].green);
+      fscanf(fileImg, "%d", &img->pixel[x * larguraGlob + y].blue);
+      fgetc(fileImg);
     }
 }
 
@@ -79,7 +82,7 @@ void printImage(Imagem *img)
   }
 }
 
-void liberacaodematriz(Imagem *img)
+void liberacaodeImage(Imagem *img)
 {
   free(img);
 }
@@ -87,18 +90,20 @@ void liberacaodematriz(Imagem *img)
 int main()
 {
 
-  FILE *img = fopen(".//input_image.txt", "r");
-  if(!img)
+  fileImg = fopen("/home/user/dever_oseas/input_image.txt", "r");
+  if (!fileImg)
     perror("Não leu");
-  
-  int largura;
-  int altura;
 
-  fscanf(img, "%d", &largura);
-  fscanf(img, "%d", &altura);
+  fscanf(fileImg, "%d", &alturaGlob);
+  fscanf(fileImg, "%d", &larguraGlob);
 
-  printf("%d\n", largura);
-  printf("%d\n", altura);
+  Imagem *img = alocacaoImage(alturaGlob, larguraGlob);
+  setPixel(alturaGlob, larguraGlob, img);
+  printImage(img);
 
+  printf("%d\n", alturaGlob);
+  printf("%d\n", larguraGlob);
+
+  liberacaodeImage(img);
   return 0;
 }
