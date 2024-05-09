@@ -103,9 +103,11 @@ int main()
     }
     fclose(open);
 
-  Imagem *img = alocacaoImage(largura, altura);
-  setPixel(largura, altura, img);
-  printImage(img);
+  fscanf(img, "%d", &largura);
+  fscanf(img, "%d", &altura);
+
+  printf("%d\n", largura);
+  printf("%d\n", altura);
 
   return 0;
 }
