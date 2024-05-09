@@ -12,7 +12,9 @@ int alturaGlob;
 
 struct pixelgray
 {
-  int pixel;
+  int r;
+  int g;
+  int b;
 };
 
 struct imageGray
@@ -38,16 +40,25 @@ ImageGray *converterParaCinza(Image *imagemrgb)
       resultado += imagemrgb->pixel[x * larguraGlob + y].green;
       resultado += imagemrgb->pixel[x * larguraGlob + y].blue;
       resultado /= 3;
-      imagegray->pixel[x * larguraGlob + y].pixel = resultado;
+      imagegray->pixel[x * larguraGlob + y].r = resultado;
+      imagegray->pixel[x * larguraGlob + y].g = resultado;
+      imagegray->pixel[x * larguraGlob + y].b = resultado;
     }
 
   return imagegray;
 }
 
-void printPixelGray(int x, int y, ImageGray *img)
+void printPixelGray(int lin, int col, ImageGray *img)
 {
-  int value = img->pixel[x * larguraGlob + y].pixel;
-  printf("\033[48;5;%dm \033[0m", value);
+  int r, g, b;
+  r = img->pixel[lin * larguraGlob + col].r;
+  g = img->pixel[lin * larguraGlob + col].g;
+  b = img->pixel[lin * larguraGlob + col].b;
+
+  if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+    perror("Valores RGB fora do intervalo permitido.\n");
+
+  printf("\033[38;2;%d;%d;%dm*\033[0m", r, g, b);
 }
 
 void printImageGrey(ImageGray *img)
