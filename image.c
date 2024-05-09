@@ -37,7 +37,7 @@ void printPixel(int R, int G, int B) {
 
     gray = 0.2126 * r + 0.7152 * g + 0.0722 * b;
 
-    printf("\033[38;2;%d;%d;%dm*\033[0m", (int)gray, (int)gray, (int)gray);
+    printf("\033[38;2;%d;%d;%dm00\033[0m", (int)gray, (int)gray, (int)gray);
 }
 
 
