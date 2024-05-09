@@ -65,7 +65,8 @@ int main()
   }
 
   int r, g, b;
-  while (fscanf(open, "%d %d %d,", &r, &g, &b) == 3)
+  system("PAUSE");
+  while (fscanf(open, "%d %d %d,", &r, &g, &b) != '\0')
   {
     printPixel(r, g, b);
   }
