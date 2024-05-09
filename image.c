@@ -22,25 +22,24 @@ struct pixelgray
   int gray;
 };
 
-void printDimensoeImage(Imagem *img)
-{
-  printf("A largura e: %d", img->largura);
-  printf("A altura e: %d", img->altura);
+void printPixel(int R, int G, int B) {
+    int r, g, b;
+    double gray;
+
+    r = R;
+    g = G;
+    b = B;
+
+    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+        perror("Valores RGB fora do intervalo permitido.\n");
+        return;
+    }
+
+    gray = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+    printf("\033[38;2;%d;%d;%dm*\033[0m", (int)gray, (int)gray, (int)gray);
 }
 
-void printPixel(int R, int G, int B)
-{
-  int r, g, b;
-
-  r = R;
-  g = G;
-  b = B;
-
-  if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-    perror("Valores RGB fora do intervalo permitido.\n");
-
-  printf("\033[38;2;%d;%d;%dm*\033[0m", r, g, b);
-}
 
 void liberacaodematriz(Imagem *img)
 {
