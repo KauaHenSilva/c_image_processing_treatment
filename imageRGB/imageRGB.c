@@ -1,12 +1,18 @@
-#include "image.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 
+#if !defined(IMAGERGB)
+#define IMAGERGB
+
+#include "imageRGB.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+#ifndef TAMANHOIMAGEM
+#define TAMANHOIMAGEM
 int larguraGlob;
 int alturaGlob;
+#endif
 
-FILE *fileImg;
+FILE *fileRGB;
 
 struct pixel
 {
@@ -19,15 +25,14 @@ struct image
   PixelRGB *pixel;
 };
 
-void printDimensoeImage(Imagem *img)
+void printDimensoeImage(Image *img)
 {
   printf("A largura e: %d", img->largura);
   printf("A altura e: %d", img->altura);
 }
 
-void printPixel(int lin, int col, Imagem *img)
+void printPixel(int lin, int col, Image *img)
 {
-
   int r, g, b;
   r = img->pixel[lin * larguraGlob + col].red;
   g = img->pixel[lin * larguraGlob + col].green;
@@ -39,26 +44,26 @@ void printPixel(int lin, int col, Imagem *img)
   printf("\033[38;2;%d;%d;%dm*\033[0m", r, g, b);
 }
 
-PixelRGB getPixel(int lin, int col, Imagem *img)
+PixelRGB getPixel(int lin, int col, Image *img)
 {
   return img->pixel[lin * larguraGlob + col];
 }
 
-void setPixel(int lin, int col, Imagem *img)
+void setPixel(int lin, int col, Image *img)
 {
   for (int x = 0; x < lin; x++)
     for (int y = 0; y < col; y++)
     {
-      fscanf(fileImg, "%d", &img->pixel[x * larguraGlob + y].red);
-      fscanf(fileImg, "%d", &img->pixel[x * larguraGlob + y].green);
-      fscanf(fileImg, "%d", &img->pixel[x * larguraGlob + y].blue);
-      fgetc(fileImg);
+      fscanf(fileRGB, "%d", &img->pixel[x * larguraGlob + y].red);
+      fscanf(fileRGB, "%d", &img->pixel[x * larguraGlob + y].green);
+      fscanf(fileRGB, "%d", &img->pixel[x * larguraGlob + y].blue);
+      fgetc(fileRGB);
     }
 }
 
-Imagem *alocacaoImage(int lin, int col)
+Image *alocacaoImage(int lin, int col)
 {
-  Imagem *image = (Imagem *)malloc(sizeof(Imagem));
+  Image *image = (Image *)malloc(sizeof(Image));
   if (!image)
     perror("ERRO NA ALOCACAO DE MEMORIA DAS LINHAS DA MATRIZ.");
 
@@ -72,7 +77,7 @@ Imagem *alocacaoImage(int lin, int col)
   return image;
 }
 
-void printImage(Imagem *img)
+void printImage(Image *img)
 {
   for (int x = 0; x < img->largura; x++)
   {
@@ -82,28 +87,9 @@ void printImage(Imagem *img)
   }
 }
 
-void liberacaodeImage(Imagem *img)
+void liberacaodeImage(Image *img)
 {
   free(img);
 }
 
-int main()
-{
-
-  fileImg = fopen("/home/user/dever_oseas/input_image.txt", "r");
-  if (!fileImg)
-    perror("Não leu");
-
-  fscanf(fileImg, "%d", &alturaGlob);
-  fscanf(fileImg, "%d", &larguraGlob);
-
-  Imagem *img = alocacaoImage(alturaGlob, larguraGlob);
-  setPixel(alturaGlob, larguraGlob, img);
-  printImage(img);
-
-  printf("%d\n", alturaGlob);
-  printf("%d\n", larguraGlob);
-
-  liberacaodeImage(img);
-  return 0;
-}
+#endif
