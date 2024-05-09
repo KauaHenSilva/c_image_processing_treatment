@@ -92,22 +92,23 @@ void liberacaodematriz(Imagem *img)
 int main()
 {
   int largura;
-  int altura = 10;
+  int altura;
     FILE *open = fopen("C:\\Users\\flavi\\Downloads\\image\\input_image.txt", "r+");
     if (open == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return 1;
     }
     if (fscanf(open, "%d\n", &largura) == 1) {
-        printf("Largura: %d\n", largura);
+    }
+    if (fscanf(open, "%d\n", &altura) == 2) {
     }
     fclose(open);
 
-  fscanf(img, "%d", &largura);
-  fscanf(img, "%d", &altura);
+  fscanf(open, "%d", &largura);
+  fscanf(open, "%d", &altura);
 
-  printf("%d\n", largura);
-  printf("%d\n", altura);
+  printf("Largura: %d\n", largura);
+  printf("Altura: %d\n", altura);
 
   return 0;
 }
