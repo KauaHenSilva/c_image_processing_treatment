@@ -17,6 +17,11 @@ struct image
   PixelRGB *pixel;
 };
 
+struct pixelgray
+{
+  int gray;
+};
+
 void printDimensoeImage(Imagem *img)
 {
   printf("A largura e: %d", img->largura);
@@ -86,8 +91,17 @@ void liberacaodematriz(Imagem *img)
 
 int main()
 {
-  int largura = LARGURA;
-  int altura = ALTURA;
+  int largura;
+  int altura = 10;
+    FILE *open = fopen("C:\\Users\\flavi\\Downloads\\image\\input_image.txt", "r+");
+    if (open == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return 1;
+    }
+    if (fscanf(open, "%d\n", &largura) == 1) {
+        printf("Largura: %d\n", largura);
+    }
+    fclose(open);
 
   Imagem *img = alocacaoImage(largura, altura);
   setPixel(largura, altura, img);

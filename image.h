@@ -1,6 +1,9 @@
 typedef struct pixel PixelRGB;
 typedef struct image Imagem;
 
+typedef struct pixelgray Pixelgray;
+typedef struct image ImageGray;
+
 // Mostrar a dimenções da imagem
 void printDimensoeImage(Imagem *img);
 
@@ -15,3 +18,4 @@ void setPixel(int lin, int col, Imagem *img);
 
 // printa os pixel das imagem em forma de matrix
 void printImage(Imagem *img);
+
