@@ -8,7 +8,8 @@ typedef struct image ImageGray;
 void printDimensoeImage(Imagem *img);
 
 // Mostrar os valores de um pixel expecifico dada as suas posições
-void printPixel(int lin, int col, Imagem *img);
+void printPixel(int R, int G, int B);
+
 
 // retornar o pixel dado uma coluna e linha
 PixelRGB getPixel(int lin, int col, Imagem *img);
