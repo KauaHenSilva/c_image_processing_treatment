@@ -40,6 +40,7 @@ void printPixel(int R, int G, int B)
     perror("Valores RGB fora do intervalo permitido.\n");
 
   printf("\033[38;2;%d;%d;%dm*\033[0m", r, g, b);
+
 }
 
 void liberacaodematriz(Imagem *img)
@@ -65,11 +66,22 @@ int main()
   }
 
   int r, g, b;
+    int cont = 0;
   system("PAUSE");
   while (fscanf(open, "%d %d %d,", &r, &g, &b) != '\0')
   {
+
     printPixel(r, g, b);
+    cont++;
+    if (cont== largura)
+    {
+      printf("\n");
+      cont = 0;
+    }
+    
+
   }
+
 
   fclose(open);
 
