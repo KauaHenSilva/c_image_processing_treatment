@@ -30,7 +30,7 @@ ImageGray *converterParaCinza(Image *imagemrgb)
   imagegray->largura = imagemrgb->largura;
 
   int multAlturaLargura = imagegray->altura * imagegray->largura;
-  imagegray->pixel = (Pixelgray *)malloc(multAlturaLargura * sizeof(int));
+  imagegray->pixel = (Pixelgray *)malloc(multAlturaLargura * sizeof(Pixelgray));
 
   for (int x = 0; x < imagegray->altura; x++)
     for (int y = 0; y < imagegray->largura; y++)
@@ -39,7 +39,9 @@ ImageGray *converterParaCinza(Image *imagemrgb)
       resultado = imagemrgb->pixel[x * larguraGlob + y].red;
       resultado += imagemrgb->pixel[x * larguraGlob + y].green;
       resultado += imagemrgb->pixel[x * larguraGlob + y].blue;
+
       resultado /= 3;
+
       imagegray->pixel[x * larguraGlob + y].r = resultado;
       imagegray->pixel[x * larguraGlob + y].g = resultado;
       imagegray->pixel[x * larguraGlob + y].b = resultado;

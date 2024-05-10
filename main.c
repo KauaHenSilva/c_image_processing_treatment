@@ -3,14 +3,20 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 
+#ifndef _WIN32
+#include <unistd.h>
+#endif
 
 int main()
 {
-  fileRGB = fopen("/home/user/dever_oseas/input_image.txt", "r");
+  fileRGB = fopen("C:/meus_estudos_global/Desktop/C/3_periodo/dever_oseas/input_image.txt", "r");
   if (!fileRGB)
+#ifndef _WIN32
     perror("Não leu");
+#else
+    exit(EXIT_FAILURE);
+#endif
 
   fscanf(fileRGB, "%d", &alturaGlob);
   fscanf(fileRGB, "%d", &larguraGlob);
@@ -23,6 +29,7 @@ int main()
   ImageGray *imgGray = converterParaCinza(img);
   printImageGrey(imgGray);
 
+  liberacaodeImage(img);
   liberacaodeImage(img);
   return 0;
 }
