@@ -60,7 +60,7 @@ void printPixelGray(int lin, int col, ImageGray *img)
   if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
     perror("Valores RGB fora do intervalo permitido.\n");
 
-  printf("\033[38;2;%d;%d;%dm*\033[0m", r, g, b);
+  printf("\033[38;2;%d;%d;%dm**\033[0m", r, g, b);
 }
 
 void printImageGrey(ImageGray *img)
