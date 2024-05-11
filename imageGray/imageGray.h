@@ -17,5 +17,5 @@ ImageGray *converterParaCinza(Image *imagemrgb);
 void printPixelGray(int x, int y, ImageGray *img);
 void printPixelGray(int x, int y, ImageGray *img);
 void printImageGrey(ImageGray *img);
-void printImagemCrusterizada(ImageGray *imgCrust);
-ImageGray *crusterizacao(ImageGray *imgGray);
+void liberacaodeImageGray(ImageGray *img);
+
