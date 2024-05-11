@@ -73,4 +73,10 @@ void printImageGrey(ImageGray *img)
   }
 }
 
+void liberacaodeImageGray(ImageGray *img)
+{
+  free(img->pixel);
+  free(img);
+}
+
 #endif // IMAGEGRAY

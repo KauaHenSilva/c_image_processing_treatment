@@ -91,6 +91,7 @@ int main()
   // printImageGrey(imgGray);
 
   liberacaodeImage(img);
-  liberacaodeImage(img);
+  liberacaodeImageGray(imgCrust);
+  liberacaodeImageGray(imgGray);
   return 0;
 }

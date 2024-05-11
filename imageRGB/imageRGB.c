@@ -89,6 +89,7 @@ void printImage(Image *img)
 
 void liberacaodeImage(Image *img)
 {
+  free(img->pixel);
   free(img);
 }
 
