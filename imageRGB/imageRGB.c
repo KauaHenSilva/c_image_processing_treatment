@@ -61,16 +61,27 @@ void setPixel(int lin, int col, Image *img)
     }
 }
 
-Image *alocacaoImage(int lin, int col)
+Image *alocacaoImage()
 {
+  fileRGB = fopen("/home/user/dever_oseas/input_image.txt", "r");
+  if (!fileRGB)
+#ifndef _WIN32
+    perror("Não leu");
+#else
+    exit(EXIT_FAILURE);
+#endif
+
+  fscanf(fileRGB, "%d", &alturaGlob);
+  fscanf(fileRGB, "%d", &larguraGlob);
+
   Image *image = (Image *)malloc(sizeof(Image));
   if (!image)
     perror("ERRO NA ALOCACAO DE MEMORIA DAS LINHAS DA MATRIZ.");
 
-  image->altura = lin;
-  image->largura = col;
+  image->altura = alturaGlob;
+  image->largura = larguraGlob;
 
-  image->pixel = (PixelRGB *)malloc(sizeof(PixelRGB) * lin * col);
+  image->pixel = (PixelRGB *)malloc(sizeof(PixelRGB) * alturaGlob * larguraGlob);
   if (!image->pixel)
     perror("ERRO NA ALOCACAO DE MEMORIA DAS LINHAS DA MATRIZ.");
 
