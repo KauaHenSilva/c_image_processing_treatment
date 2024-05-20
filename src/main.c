@@ -29,11 +29,11 @@ int main()
   ImageRGB *img = alocacaoImage();
   setPixel(alturaGlob, larguraGlob, img);
 
-  // printImage(img);
+  printImage(img);
 
   ImageGray *imgGray = converterParaCinza(img);
 
-  // printImageGrey(imgGray);
+  printImageGrey(imgGray);
 
   ImageCrust *imgCrust = crusterizacao(imgGray);
 
