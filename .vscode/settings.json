@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    ".env.*": "dotenv",
+    ".prettierrc": "json",
+    "*.css": "css",
+    "unistd.h": "c",
+    "imagergb.h": "c"
+  },
+  "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild",
+  "C_Cpp.default.compileCommands": "/home/user/c_image_processing_treatment/builddir/compile_commands.json"
+}

@@ -1,37 +1,17 @@
 
-#if !defined(IMAGERGB)
-#define IMAGERGB
-
 #include "imageRGB.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifndef TAMANHOIMAGEM
-#define TAMANHOIMAGEM
-int larguraGlob;
-int alturaGlob;
-#endif
+FILE *fileRGB = NULL;
 
-FILE *fileRGB;
-
-struct pixel
-{
-  int red, blue, green;
-};
-
-struct image
-{
-  int largura, altura;
-  PixelRGB *pixel;
-};
-
-void printDimensoeImage(Image *img)
+void printDimensoesImage(ImageRGB *img)
 {
   printf("A largura e: %d", img->largura);
   printf("A altura e: %d", img->altura);
 }
 
-void printPixel(int lin, int col, Image *img)
+void printPixel(int lin, int col, ImageRGB *img)
 {
   int r, g, b;
   r = img->pixel[lin * larguraGlob + col].red;
@@ -44,12 +24,12 @@ void printPixel(int lin, int col, Image *img)
   printf("\033[38;2;%d;%d;%dm**\033[0m", r, g, b);
 }
 
-PixelRGB getPixel(int lin, int col, Image *img)
+PixelRGB getPixel(int lin, int col, ImageRGB *img)
 {
   return img->pixel[lin * larguraGlob + col];
 }
 
-void setPixel(int lin, int col, Image *img)
+void setPixel(int lin, int col, ImageRGB *img)
 {
   for (int x = 0; x < lin; x++)
     for (int y = 0; y < col; y++)
@@ -61,20 +41,16 @@ void setPixel(int lin, int col, Image *img)
     }
 }
 
-Image *alocacaoImage()
+ImageRGB *alocacaoImage()
 {
-  fileRGB = fopen("/home/user/dever_oseas/input_image.txt", "r");
+  fileRGB = fopen("./input_image.txt", "r");
   if (!fileRGB)
-#ifndef _WIN32
     perror("Não leu");
-#else
-    exit(EXIT_FAILURE);
-#endif
 
   fscanf(fileRGB, "%d", &alturaGlob);
   fscanf(fileRGB, "%d", &larguraGlob);
 
-  Image *image = (Image *)malloc(sizeof(Image));
+  ImageRGB *image = (ImageRGB *)malloc(sizeof(ImageRGB));
   if (!image)
     perror("ERRO NA ALOCACAO DE MEMORIA DAS LINHAS DA MATRIZ.");
 
@@ -88,7 +64,7 @@ Image *alocacaoImage()
   return image;
 }
 
-void printImage(Image *img)
+void printImage(ImageRGB *img)
 {
   for (int x = 0; x < img->largura; x++)
   {
@@ -98,10 +74,8 @@ void printImage(Image *img)
   }
 }
 
-void liberacaodeImage(Image *img)
+void liberacaodeImage(ImageRGB *img)
 {
   free(img->pixel);
   free(img);
 }
-
-#endif

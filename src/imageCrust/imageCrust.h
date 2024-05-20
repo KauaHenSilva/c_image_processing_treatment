@@ -1,7 +1,4 @@
-typedef struct pixelgray Pixelgray;
-typedef struct imageGray ImageGray;
-
-typedef struct imageCrust ImageCrust;
+#include "../imageStructAndGlobVar/imageStructAndGlobVar.h"
 
 void printImagemCrusterizada(ImageCrust *imgCrust);
 ImageCrust *crusterizacao(ImageGray *imgGray);

@@ -1,20 +1,7 @@
 #include "imageCrust.h"
-#include "../imageGray/imageGray.c"
 #include <stdlib.h>
 #include <stdio.h>
 
-#ifndef TAMANHOIMAGEM
-#define TAMANHOIMAGEM
-int larguraGlob;
-int alturaGlob;
-#endif
-
-
-struct imageCrust
-{
-  int largura, altura;
-  int *pixel;
-};
 
 void printImagemCrusterizada(ImageCrust *imgCrust)
 {
@@ -28,20 +15,9 @@ void printImagemCrusterizada(ImageCrust *imgCrust)
 
 ImageCrust *crusterizacao(ImageGray *imgGray)
 {
-  FILE *seed = fopen("/home/user/dever_oseas/seed.txt", "r");
+  FILE *seed = fopen("./seed.txt", "r");
   if (!seed)
-#ifndef _WIN32
     perror("Não leu");
-#else
-    exit(EXIT_FAILURE);
-#endif
-
-  // X   Y   DIFERENCA
-  // 310 290 30
-  // 121 65 20
-  // 199 393 20
-  // 218 91 30
-  // 287 159 30
 
   ImageCrust *imgCrust = (ImageCrust *)malloc(sizeof(ImageCrust));
   imgCrust->altura = imgGray->altura;
@@ -52,11 +28,11 @@ ImageCrust *crusterizacao(ImageGray *imgGray)
   int resultado;
   while (fscanf(seed, "%d %d %d %d", &x, &y, &diferenca, &resultado) != EOF)
   {
-    int pCinza = imgGray->pixel[x * larguraGlob + y].r;
+    int pCinza = imgGray->pixel[x * larguraGlob + y];
     for (int i = 0; i < imgGray->altura; i++)
       for (int j = 0; j < imgGray->largura; j++)
       {
-        pixelAtual = imgGray->pixel[i * larguraGlob + j].r;
+        pixelAtual = imgGray->pixel[i * larguraGlob + j];
 
         int diferencaAtual = pCinza - pixelAtual;
         if (diferencaAtual < 0)

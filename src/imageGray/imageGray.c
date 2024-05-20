@@ -1,36 +1,17 @@
-#if !defined(IMAGEGRAY)
-#define IMAGEGRAY
+
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "imageGray.h"
-#include "../imageRGB/imageRGB.c"
 
-#ifndef TAMANHOIMAGEM
-#define TAMANHOIMAGEM
-int larguraGlob;
-int alturaGlob;
-#endif
-
-struct pixelgray
-{
-  int r;
-  int g;
-  int b;
-};
-
-struct imageGray
-{
-  int largura, altura;
-  Pixelgray *pixel;
-};
-
-ImageGray *converterParaCinza(Image *imagemrgb)
+ImageGray *converterParaCinza(ImageRGB *imagemrgb)
 {
   ImageGray *imagegray = (ImageGray *)malloc(sizeof(ImageGray));
   imagegray->altura = imagemrgb->altura;
   imagegray->largura = imagemrgb->largura;
 
   int multAlturaLargura = imagegray->altura * imagegray->largura;
-  imagegray->pixel = (Pixelgray *)malloc(multAlturaLargura * sizeof(Pixelgray));
+  imagegray->pixel = (int *)malloc(multAlturaLargura * sizeof(int));
 
   for (int x = 0; x < imagegray->altura; x++)
     for (int y = 0; y < imagegray->largura; y++)
@@ -42,9 +23,7 @@ ImageGray *converterParaCinza(Image *imagemrgb)
 
       resultado /= 3;
 
-      imagegray->pixel[x * larguraGlob + y].r = resultado;
-      imagegray->pixel[x * larguraGlob + y].g = resultado;
-      imagegray->pixel[x * larguraGlob + y].b = resultado;
+      imagegray->pixel[x * larguraGlob + y] = resultado;
     }
 
   return imagegray;
@@ -52,15 +31,13 @@ ImageGray *converterParaCinza(Image *imagemrgb)
 
 void printPixelGray(int lin, int col, ImageGray *img)
 {
-  int r, g, b;
-  r = img->pixel[lin * larguraGlob + col].r;
-  g = img->pixel[lin * larguraGlob + col].g;
-  b = img->pixel[lin * larguraGlob + col].b;
+  int gray;
+  gray = img->pixel[lin * larguraGlob + col];
 
-  if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+  if (gray < 0 || gray > 255)
     perror("Valores RGB fora do intervalo permitido.\n");
 
-  printf("\033[38;2;%d;%d;%dm**\033[0m", r, g, b);
+  printf("\033[38;2;%d;%d;%dm**\033[0m", gray, gray, gray);
 }
 
 void printImageGrey(ImageGray *img)
@@ -73,12 +50,8 @@ void printImageGrey(ImageGray *img)
   }
 }
 
-
-
 void liberacaodeImageGray(ImageGray *img)
 {
   free(img->pixel);
   free(img);
 }
-
-#endif // IMAGEGRAY
